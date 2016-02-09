@@ -12,9 +12,9 @@ namespace meow
 	{
 		union
 		{
-			vec3 c[3];
 			struct { float m[9]; };
 			struct { float mm[3][3]; };
+			vec3 c[3];
 			struct 
 			{
 				union { vec3 c1; vec2 right; };
@@ -22,6 +22,8 @@ namespace meow
 				union { vec3 c3; vec2 position; };
 			};
 		};
+
+		mat3 &operator=(const mat3 &a);
 
 		mat3 &operator+=(const float &a);
 		mat3 &operator+=(const mat3 &a);
@@ -37,8 +39,41 @@ namespace meow
 		mat3 rotate(const float &a) const;
 		mat3 scale(const vec2 &a) const;
 		mat3 translate(const vec2 &a) const;
+		
+		float determinant() const;
 	};
+	
+	mat3 operator+(const mat3 &a, const float &b);
+	mat3 operator+(const float &a, const mat3 &b);
+	mat3 operator+(const mat3 &a, const mat3 &b);
 
+	mat3 operator-(const mat3 &a, const float &b);
+	mat3 operator-(const mat3 &a, const mat3 &b);
+
+	mat3 operator*(const mat3 &a, const float &b);
+	mat3 operator*(const float &a, const mat3 &b);
+	mat3 operator*(const mat3 &a, const mat3 &b);
+
+	vec3 operator*(const mat3 &a, const vec3 &b);
+	vec3 operator*(const vec3 &a, const mat3 &b);
+
+	bool operator==(const mat3 &a, const mat3 &b);
+	bool operator!=(const mat3 &a, const mat3 &b);
+	bool operator<(const mat3 &a, const mat3 &b);
+	bool operator<=(const mat3 &a, const mat3 &b);
+	bool operator>(const mat3 &a, const mat3 &b);
+	bool operator>=(const mat3 &a, const mat3 &b);
+
+	std::ostream &operator<<(std::ostream &os, const mat3 &a);
+
+	mat3 identity();
+	mat3 inverse(const mat3 &a);
+	mat3 transpose(const mat3 &a);
+	mat3 rotate(const mat3 &a, const float &b);
+	mat3 scale(const mat3 &a, const vec2 &b);
+	mat3 translate(const mat3 &a, const vec2 &b);
+
+	float determinant(const mat3 &a);
 }
 
 
