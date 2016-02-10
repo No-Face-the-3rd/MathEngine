@@ -44,14 +44,7 @@ meow::mat3 &meow::mat3::operator*=(const mat3 &a)
 
 meow::mat3 meow::mat3::identity() const
 {
-	mat3 tmp;
-	for (int i = 0; i < 3; ++i)
-		for (int j = 0; j < 3; ++j)
-			if (i == j)
-				tmp.c[i].v[j] = 1.0f;
-			else
-				tmp.c[i].v[j] = 0.0f;
-	return tmp;
+	return meow::identity();
 }
 meow::mat3 meow::mat3::inverse() const
 {
@@ -160,4 +153,73 @@ meow::vec3 meow::operator*(const mat3 &a, const vec3 &b)
 meow::vec3 meow::operator*(const vec3 &a, const mat3 &b)
 {
 	return vec3{ dot(a, b.c[0]),dot(a,b.c[1]),dot(a,b.c[2]) };
+}
+
+bool meow::operator==(const mat3 &a, const mat3 &b)
+{
+	return (a.c[0] == b.c[0] && a.c[1] == b.c[1] && a.c[2] == b.c[2]);
+}
+bool meow::operator!=(const mat3 &a, const mat3 &b)
+{
+	return !(a == b);
+}
+bool meow::operator<(const mat3 &a, const mat3 &b)
+{
+	return (a.c[0] < b.c[0] && a.c[1] < b.c[1] && a.c[2] < b.c[2]);
+}
+bool meow::operator<=(const mat3 &a, const mat3 &b)
+{
+	return (a == b || a < b);
+}
+bool meow::operator>(const mat3 &a, const mat3 &b)
+{
+	return !(a <= b);
+}
+bool meow::operator>=(const mat3 &a, const mat3 &b)
+{
+	return !(a < b);
+}
+
+std::ostream &meow::operator<<(std::ostream&os, const mat3 &a)
+{
+	for (int i = 0; i < 3; ++i)
+		os << a.c[i] << std::endl;
+	return os;
+}
+
+meow::mat3 meow::identity()
+{
+	mat3 tmp;
+	for (int i = 0; i < 3; ++i)
+		for (int j = 0; j < 3; ++j)
+			if (i == j)
+				tmp.c[i].v[j] = 1.0f;
+			else
+				tmp.c[i].v[j] = 0.0f;
+	return tmp;
+}
+meow::mat3 meow::inverse(const mat3 &a)
+{
+	return a.inverse();
+}
+meow::mat3 meow::transpose(const mat3 &a)
+{
+	return a.transpose();
+}
+meow::mat3 meow::rotate(const mat3 &a, const float &b)
+{
+	return a.rotate(b);
+}
+meow::mat3 meow::scale(const mat3 &a, const vec2 &b)
+{
+	return a.scale(b);
+}
+meow::mat3 meow::translate(const mat3 &a, const vec2 &b)
+{
+	return a.translate(b);
+}
+
+float meow::determinant(const mat3 &a)
+{
+	return a.determinant();
 }

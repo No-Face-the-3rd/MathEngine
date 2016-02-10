@@ -12,8 +12,8 @@ namespace meow
 	{
 		union
 		{
-			struct { float m[9]; };
-			struct { float mm[3][3]; };
+			float m[9];
+			float mm[3][3];
 			vec3 c[3];
 			struct 
 			{
