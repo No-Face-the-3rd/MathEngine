@@ -154,9 +154,10 @@ meow::mat3 meow::operator*(const mat3 &a, const mat3 &b)
 
 meow::vec3 meow::operator*(const mat3 &a, const vec3 &b)
 {
-
+	mat3 tmp = a.transpose();
+	return vec3{ dot(tmp.c[0],b),dot(tmp.c[1],b),dot(tmp.c[2],b) };
 }
 meow::vec3 meow::operator*(const vec3 &a, const mat3 &b)
 {
-
+	return vec3{ dot(a, b.c[0]),dot(a,b.c[1]),dot(a,b.c[2]) };
 }
