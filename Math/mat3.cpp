@@ -91,6 +91,7 @@ meow::mat3 meow::mat3::translate(const vec2 &a) const
 	tmp.c[2].v[1] = a.y;
 	return tmp;
 }
+
 float meow::mat3::determinant() const
 {
 	float det = 0.0f;
@@ -102,3 +103,60 @@ float meow::mat3::determinant() const
 	return det;
 }
 
+meow::mat3 meow::operator+(const mat3 &a, const float &b)
+{
+	mat3 tmp = a;
+	return (tmp += b);	
+}
+meow::mat3 meow::operator+(const float &a, const mat3 &b)
+{
+	return (b + a);
+}
+meow::mat3 meow::operator+(const mat3 &a, const mat3 &b)
+{
+	mat3 tmp = a;
+	for (int i = 0; i < 3; ++i)
+		tmp.c[i] += b.c[i];
+	return tmp;
+}
+
+meow::mat3 meow::operator-(const mat3 &a, const float &b)
+{
+	mat3 tmp = a;
+	for (int i = 0; i < 3; ++i)
+		tmp.c[i] -= b;
+	return tmp;
+}
+meow::mat3 meow::operator-(const mat3 &a, const mat3 &b)
+{
+	mat3 tmp = a;
+	for (int i = 0; i < 3; ++i)
+		tmp.c[i] -= b.c[i];
+	return tmp;
+}
+
+meow::mat3 meow::operator*(const mat3 &a, const float &b)
+{
+	mat3 tmp = a;
+	for (int i = 0; i < 3; ++i)
+		tmp.c[i] *= b;
+	return tmp;
+}
+meow::mat3 meow::operator*(const float &a, const mat3 &b)
+{
+	return (b * a);
+}
+meow::mat3 meow::operator*(const mat3 &a, const mat3 &b)
+{
+	mat3 tmp = a;
+	return (tmp *= b);
+}
+
+meow::vec3 meow::operator*(const mat3 &a, const vec3 &b)
+{
+
+}
+meow::vec3 meow::operator*(const vec3 &a, const mat3 &b)
+{
+
+}
