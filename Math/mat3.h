@@ -37,6 +37,7 @@ namespace meow
 		mat3 inverse() const;
 		mat3 transpose() const;
 		mat3 rotate(const float &a) const;
+		mat3 rotate(const vec2 &a) const;
 		mat3 scale(const vec2 &a) const;
 		mat3 translate(const vec2 &a) const;
 		
@@ -70,6 +71,7 @@ namespace meow
 	mat3 inverse(const mat3 &a);
 	mat3 transpose(const mat3 &a);
 	mat3 rotate(const mat3 &a, const float &b);
+	mat3 rotate(const mat3 &a, const vec2 &b);
 	mat3 scale(const mat3 &a, const vec2 &b);
 	mat3 translate(const mat3 &a, const vec2 &b);
 

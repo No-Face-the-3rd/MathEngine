@@ -65,9 +65,13 @@ meow::mat3 meow::mat3::transpose() const
 }
 meow::mat3 meow::mat3::rotate(const float &a) const
 {
+	return this->rotate( vec2{ a,a });
+}
+meow::mat3 meow::mat3::rotate(const vec2 &a) const
+{
 	mat3 tmp = mat3::identity();
-	tmp.c[0] += vec2{ cos(a), sin(a) };
-	tmp.c[1] += vec2{ -sin(a),cos(a) };
+	tmp.c[0] += vec2{ cos(a.x), sin(a.x) };
+	tmp.c[1] += vec2{ -sin(a.y),cos(a.y) };
 	return tmp;
 }
 meow::mat3 meow::mat3::scale(const vec2 &a) const
@@ -207,6 +211,10 @@ meow::mat3 meow::transpose(const mat3 &a)
 	return a.transpose();
 }
 meow::mat3 meow::rotate(const mat3 &a, const float &b)
+{
+	return a.rotate(b);
+}
+meow::mat3 meow::rotate(const mat3 &a, const vec2 &b)
 {
 	return a.rotate(b);
 }

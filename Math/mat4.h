@@ -37,10 +37,50 @@ namespace meow
 		mat4 identity() const;
 		mat4 inverse() const;
 		mat4 transpose() const;
-		mat4 orthographicProjection() const;
+		//mat4 orthographicProjection() const;
+		mat4 rotate(const float &a) const;
+		mat4 rotate(const vec3 &a) const;
+		mat4 scale(const vec3 &a) const;
+		mat4 translate(const vec3 &a) const;
 
+		float determinant() const;
 	};
 
+	mat4 operator+(const mat4 &a, const float &b);
+	mat4 operator+(const float &a, const mat4 &b);
+	mat4 operator+(const mat4 &a, const mat4 &b);
+
+	mat4 operator-(const mat4 &a, const float &b);
+	mat4 operator-(const mat4 &a, const mat4 &b);
+
+	mat4 operator*(const mat4 &a, const float &b);
+	mat4 operator*(const float &a, const mat4 &b);
+	mat4 operator*(const mat4 &a, const mat4 &b);
+
+	vec4 operator*(const mat4 &a, const vec4 &b);
+	vec4 operator*(const vec4 &a, const mat4 &b);
+
+	bool operator==(const mat4 &a, const mat4 &b);
+	bool operator!=(const mat4 &a, const mat4 &b);
+	bool operator<(const mat4 &a, const mat4 &b);
+	bool operator<=(const mat4 &a, const mat4 &b);
+	bool operator>(const mat4 &a, const mat4 &b);
+	bool operator>=(const mat4 &a, const mat4 &b);
+
+	std::ostream &operator<<(std::ostream &os, const mat4 &a);
+
+	mat4 identity();
+	mat4 inverse(const mat4 &a);
+	mat4 transpose(const mat4 &a);
+	//mat4 orthographicProjection();
+	mat4 rotate(const mat4 &a, const float &b);
+	mat4 rotate(const mat4 &a, const vec3 &b);
+	mat4 scale(const mat4 &a, const vec3 &b);
+	mat4 translate(const mat4 &a, const vec3 &b);
+
+	flaot determinant(const mat4 &a);
+
+	mat4 mat3ToMat4(const mat3 &a);
 }
 
 
