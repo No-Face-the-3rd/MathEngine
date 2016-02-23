@@ -67,7 +67,7 @@ namespace meow
 
 	std::ostream &operator<<(std::ostream &os, const mat3 &a);
 
-	mat3 identity();
+	mat3 mat3Identity();
 	mat3 inverse(const mat3 &a);
 	mat3 transpose(const mat3 &a);
 	mat3 rotate(const mat3 &a, const float &b);

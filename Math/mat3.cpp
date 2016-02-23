@@ -44,7 +44,7 @@ meow::mat3 &meow::mat3::operator*=(const mat3 &a)
 
 meow::mat3 meow::mat3::identity() const
 {
-	return meow::identity();
+	return meow::mat3Identity();
 }
 meow::mat3 meow::mat3::inverse() const
 {
@@ -191,7 +191,7 @@ std::ostream &meow::operator<<(std::ostream&os, const mat3 &a)
 	return os;
 }
 
-meow::mat3 meow::identity()
+meow::mat3 meow::mat3Identity()
 {
 	mat3 tmp;
 	for (int i = 0; i < 3; ++i)

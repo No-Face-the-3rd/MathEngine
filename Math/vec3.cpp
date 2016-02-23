@@ -99,7 +99,7 @@ float meow::vec3::dot(const vec3 &a) const
 }
 meow::vec3 meow::vec3::cross(const vec3 &a) const
 {
-	return vec3{ this->y * a.z - this->z * a.y,this->z * a.x - this->x * a.z,this->x*a.y - this->y*a.x };
+	return vec3{ this->y * a.z - this->z * a.y,this->z * a.x - this->x * a.z,this->x * a.y - this->y * a.x };
 }
 meow::vec3 meow::vec3::lerp(const vec3 &a, const float &b) const
 {

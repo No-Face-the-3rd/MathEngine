@@ -17,7 +17,6 @@ namespace meow
 			struct {vec2 xy;float z;};
 		};
 
-
 		vec3 &operator=(const float &a);
 		vec3 &operator=(const vec2 &a);
 		vec3 &operator=(const vec3 &a);
