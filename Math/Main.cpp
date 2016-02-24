@@ -1,15 +1,34 @@
 #include "mat4.h"
 
+#include <cassert>
 #include <iostream>
+
+void mathAsserts();
 
 void main()
 {
-	meow::mat4 rawr = { 1,2,3,4,5,6,7,8,9,8,7,6,5,4,3,2 };
-	std::cout << rawr.determinant() << std::endl;
-
-	meow::mat4 pew = { 1,2,3,-1,6,4,-3,2,0,3,0,0,2,-1,1,2 };
-	std::cout << pew.determinant() << std::endl;
 
 	system("pause");
 	return;
+}
+
+void mathAsserts()
+{
+#ifndef _DEBUG
+	return;
+#endif
+
+	{
+		meow::vec2 a = { 2.0f,2.0f }, b;
+		b = 2.0f;
+		assert(a == b);
+		meow::vec2 c = a;
+		assert(c == b);
+		a += 1.0f;
+		c = 3.0f;
+		assert(a == c);
+		b += a;
+		c = 5.0f;
+		assert(b == c);
+	}
 }
