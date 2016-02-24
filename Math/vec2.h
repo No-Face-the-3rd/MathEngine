@@ -11,7 +11,7 @@
 
 namespace meow
 {
-	__declspec(align(32)) struct vec2
+	struct vec2
 	{
 		union
 		{

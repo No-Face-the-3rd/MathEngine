@@ -13,7 +13,7 @@ namespace meow
 		union
 		{
 			float v[3];
-			struct { float x, y, z; };
+			struct {float x, y, z; };
 			struct {vec2 xy;float z;};
 		};
 

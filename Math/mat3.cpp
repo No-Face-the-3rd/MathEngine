@@ -93,10 +93,7 @@ float meow::mat3::determinant() const
 {
 	float det = 0.0f;
 	for (int i = 0; i < 3; ++i)
-	{
-		det += this->c[i].v[0] * this->c[(i + 1) % 3].v[1] * this->c[(i + 2) % 3].v[2];
-		det -= this->c[0].v[(3 - i) % 3] * this->c[1].v[(3 - i - 1) % 3] * this->c[2].v[(6 - i - 2) % 3];
-	}
+		det += this->c[i].v[0] * this->c[(i + 1) % 3].v[1] * this->c[(i + 2) % 3].v[2] - this->c[0].v[(3 - i) % 3] * this->c[1].v[(3 - i - 1) % 3] * this->c[2].v[(6 - i - 2) % 3];
 	return det;
 }
 
@@ -186,8 +183,9 @@ bool meow::operator>=(const mat3 &a, const mat3 &b)
 
 std::ostream &meow::operator<<(std::ostream&os, const mat3 &a)
 {
+	mat3 tmp = a.transpose();
 	for (int i = 0; i < 3; ++i)
-		os << a.c[i] << std::endl;
+		os << tmp.c[i] << std::endl;
 	return os;
 }
 

@@ -7,7 +7,7 @@
 
 namespace meow
 {
-	__declspec(align(16)) struct vec4
+	struct vec4
 	{
 		union
 		{

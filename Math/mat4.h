@@ -8,7 +8,7 @@
 
 namespace meow
 {
-	__declspec(align(32)) struct mat4
+	struct mat4
 	{
 		union
 		{
@@ -38,10 +38,14 @@ namespace meow
 		mat4 inverse() const;
 		mat4 transpose() const;
 		//mat4 orthographicProjection() const;
+		mat4 rotate(const float &a) const;
+		mat4 rotate(const vec3 &a) const;
 		mat4 scale(const vec3 &a) const;
 		mat4 translate(const vec3 &a) const;
 
 		float determinant() const;
+
+		mat3 minor(const int &a, const int &b) const;
 	};
 
 	mat4 operator+(const mat4 &a, const float &b);
@@ -71,12 +75,16 @@ namespace meow
 	mat4 inverse(const mat4 &a);
 	mat4 transpose(const mat4 &a);
 	//mat4 orthographicProjection();
+	mat4 rotate(const mat4 &a, const float &b);
+	mat4 rotate(const mat4 &a, const vec3 &b);
 	mat4 scale(const mat4 &a, const vec3 &b);
 	mat4 translate(const mat4 &a, const vec3 &b);
 
-	flaot determinant(const mat4 &a);
+	float determinant(const mat4 &a);
 
 	mat4 mat3ToMat4(const mat3 &a);
+
+	mat3 minor(const mat4 &a, const int &b, const int &c);
 }
 
 
