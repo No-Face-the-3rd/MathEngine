@@ -33,6 +33,12 @@ meow::mat3 &meow::mat3::operator-=(const mat3 &a)
 	return *this;
 }
 
+meow::mat3 &meow::mat3::operator*=(const float &a)
+{
+	for (int i = 0; i < 3; ++i)
+		this->c[i] *= a;
+	return *this;
+}
 meow::mat3 &meow::mat3::operator*=(const mat3 &a)
 {
 	mat3 tmp = this->transpose();
@@ -109,32 +115,24 @@ meow::mat3 meow::operator+(const float &a, const mat3 &b)
 meow::mat3 meow::operator+(const mat3 &a, const mat3 &b)
 {
 	mat3 tmp = a;
-	for (int i = 0; i < 3; ++i)
-		tmp.c[i] += b.c[i];
-	return tmp;
+	return (tmp += b);
 }
 
 meow::mat3 meow::operator-(const mat3 &a, const float &b)
 {
 	mat3 tmp = a;
-	for (int i = 0; i < 3; ++i)
-		tmp.c[i] -= b;
-	return tmp;
+	return (tmp -= b);
 }
 meow::mat3 meow::operator-(const mat3 &a, const mat3 &b)
 {
 	mat3 tmp = a;
-	for (int i = 0; i < 3; ++i)
-		tmp.c[i] -= b.c[i];
-	return tmp;
+	return (tmp -= b);
 }
 
 meow::mat3 meow::operator*(const mat3 &a, const float &b)
 {
 	mat3 tmp = a;
-	for (int i = 0; i < 3; ++i)
-		tmp.c[i] *= b;
-	return tmp;
+	return (tmp *= b);
 }
 meow::mat3 meow::operator*(const float &a, const mat3 &b)
 {

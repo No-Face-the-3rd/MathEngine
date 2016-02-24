@@ -32,6 +32,7 @@ namespace meow
 		mat4 &operator-=(const float &a);
 		mat4 &operator-=(const mat4 &a);
 
+		mat4 &operator*=(const float &a);
 		mat4 &operator*=(const mat4 &a);
 
 		mat4 identity() const;

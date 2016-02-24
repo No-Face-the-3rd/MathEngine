@@ -31,6 +31,7 @@ namespace meow
 		mat3 &operator-=(const float &a);
 		mat3 &operator-=(const mat3 &a);
 
+		mat3 &operator*=(const float &a);
 		mat3 &operator*=(const mat3 &a);
 
 		mat3 identity() const;
