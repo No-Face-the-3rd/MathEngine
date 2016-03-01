@@ -7,6 +7,20 @@ void mathAsserts();
 
 void main()
 {
+	meow::mat4 rawr = { 1,2,3,4,4,6,5,8,9,1,2,3,4,5,6,7 };
+	
+	std::cout << rawr << std::endl;
+
+	std::cout << rawr.determinant() << std::endl << std::endl;
+
+	std::cout << rawr * rawr << std::endl;
+	std::cout << rawr + rawr << std::endl;
+	std::cout << rawr - rawr << std::endl;
+	
+	std::cout << rawr.inverse() << std::endl;
+	std::cout << rawr * rawr.inverse() << std::endl;
+	std::cout << rawr.inverse().inverse() << std::endl;
+
 
 	mathAsserts();
 

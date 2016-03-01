@@ -195,7 +195,7 @@ bool meow::operator>=(const mat4 &a, const mat4 &b)
 std::ostream &meow::operator<<(std::ostream &os, const mat4 &a)
 {
 	mat4 tmp = a.transpose();
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < 4; ++i)
 		os << tmp.c[i] << std::endl;
 	return os;
 }
