@@ -203,6 +203,10 @@ void meow::normalize(vec3 &a)
 	a.normalize();
 	return;
 }
+float meow::magnitude(const vec3 &a)
+{
+	return a.magnitude();
+}
 float meow::dot(const vec3 &a, const vec3 &b)
 {
 	return a.dot(b);

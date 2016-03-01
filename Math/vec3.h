@@ -70,6 +70,7 @@ namespace meow
 
 	vec3 normal(const vec3 &a);
 	void normalize(vec3 &a);
+	float magnitude(const vec3 &a);
 	float dot(const vec3 &a, const vec3 &b);
 	vec3 cross(const vec3 &a, const vec3 &b);
 	vec3 lerp(const vec3 &a, const vec3 &b, const float &c);

@@ -218,6 +218,10 @@ void meow::normalize(vec4 &a)
 	a.normalize();
 	return;
 }
+float meow::magnitude(const vec4 &a)
+{
+	return a.magnitude();
+}
 float meow::dot(const vec4 &a, const vec4 &b)
 {
 	return a.dot(b);

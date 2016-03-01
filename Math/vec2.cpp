@@ -86,7 +86,7 @@ meow::vec2 meow::vec2::lerp(const vec2 &a, const float &b) const
 }
 meow::vec2 meow::vec2::reflection(const vec2 &a) const
 {
-	return (*this - 2 * (this->dot(a.normal())) * a.normal());
+	return (2 * (this->dot(a.normal())) * a.normal() - *this);
 }
 
 meow::vec2 meow::operator+(const vec2 &a, const vec2 &b)
@@ -169,6 +169,10 @@ void meow::normalize(vec2 &a)
 {
 	a.normalize();
 	return;
+}
+float meow::magnitude(const vec2 &a)
+{
+	return a.magnitude();
 }
 meow::vec2 meow::perpendicular(const vec2 &a)
 {

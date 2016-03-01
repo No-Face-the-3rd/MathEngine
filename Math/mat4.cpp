@@ -57,7 +57,7 @@ meow::mat4 meow::mat4::inverse() const
 	mat4 tmp;
 	for (int i = 0; i < 4; ++i)
 		for (int j = 0; j < 4; ++j)
-			tmp.c[i].v[j] = this->minor(i, j).determinant();
+			tmp.c[i].v[j] = std::pow(-1.0f,i + j + 2) *  this->minor(j, i).determinant();
 	return ((1/this->determinant()) * tmp);
 }
 meow::mat4 meow::mat4::transpose() const
@@ -70,7 +70,7 @@ meow::mat4 meow::mat4::transpose() const
 }
 meow::mat4 meow::mat4::rotate(const float &a) const
 {
-	return this->rotate(vec3{ 0.0f, 0.0f ,0.0f });
+	return this->rotate(vec3{ 0.0f, 0.0f ,a });
 }
 meow::mat4 meow::mat4::rotate(const vec3 &a) const
 {

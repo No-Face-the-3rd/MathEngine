@@ -9,6 +9,8 @@
 #include <cfloat>
 #include <algorithm>
 
+#define FLT_EPSILON 0.00001
+
 namespace meow
 {
 	struct vec2
@@ -68,6 +70,7 @@ namespace meow
 
 	vec2 normal(const vec2 &a);
 	void normalize(vec2 &a);
+	float magnitude(const vec2 &a);
 	vec2 perpendicular(const vec2 &a);
 	float dot(const vec2 &a, const vec2 &b);
 	float angle(const vec2 &a);

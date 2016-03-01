@@ -75,6 +75,7 @@ namespace meow
 
 	vec4 normal(const vec4 &a);
 	void normalize(vec4 &a);
+	float magnitude(const vec4 &a);
 	float dot(const vec4 &a, const vec4 &b);
 	vec4 lerp(const vec4 &a, const vec4 &b, const float &c);
 	vec4 reflection(const vec4 &a, const vec4 &b);
