@@ -107,7 +107,7 @@ meow::vec3 meow::vec3::lerp(const vec3 &a, const float &b) const
 }
 meow::vec3 meow::vec3::reflection(const vec3 &a) const
 {
-	return (*this - 2 * (this->dot(a.normal())) * a.normal());
+	return (2 * (this->dot(a.normal())) * a.normal() - *this);
 }
 
 meow::vec3 meow::operator+(const vec3 &a, const float &b)
@@ -165,7 +165,7 @@ meow::vec3 meow::operator/(const vec3 &a, const float &b)
 
 bool meow::operator==(const vec3 &a, const vec3 &b)
 {
-	return (fabs(b.x - a.x) < FLT_EPSILON && fabs(b.y - a.y) < FLT_EPSILON && fabs(b.z - a.z) < FLT_EPSILON);
+	return (a.xy == b.xy && fabs(b.z - a.z) < FLT_EPSILON);
 }
 bool meow::operator!=(const vec3 &a, const vec3 &b)
 {
@@ -173,7 +173,7 @@ bool meow::operator!=(const vec3 &a, const vec3 &b)
 }
 bool meow::operator<(const vec3 &a, const vec3 &b)
 {
-	return (a.x < b.x && a.y < b.y && a.z < b.z);
+	return (a.xy < b.xy && a.z < b.z);
 }
 bool meow::operator<=(const vec3 &a, const vec3 &b)
 {

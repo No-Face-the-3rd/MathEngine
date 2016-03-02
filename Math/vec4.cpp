@@ -110,7 +110,7 @@ meow::vec4 meow::vec4::lerp(const vec4 &a, const float &b) const
 }
 meow::vec4 meow::vec4::reflection(const vec4 &a) const
 {
-	return (*this - 2 * (this->dot(a.normal())) * a.normal());
+	return (2 * (this->dot(a.normal())) * a.normal() - *this);
 }
 
 meow::vec4 meow::operator+(const vec4 &a, const float &b)
