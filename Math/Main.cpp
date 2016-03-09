@@ -7,9 +7,10 @@ void mathAsserts();
 
 void main()
 {
-
+#ifndef _DEBUG
+	return;
+#endif
 	mathAsserts();
-
 	system("pause");
 	return;
 }
@@ -19,7 +20,6 @@ void mathAsserts()
 #ifndef _DEBUG
 	return;
 #endif
-	
 	//vec2
 	{
 		//internal operators
@@ -130,32 +130,32 @@ void mathAsserts()
 			b.z = 2.0f;
 			assert(a == b);
 			assert(a == c);
-a += 2.0f;
-b = 4.0f;
-assert(a == b);
-a = 2.0f;
-b = { 4.0f,4.0f,2.0f };
-a += meow::vec2{ 2.0f,2.0f };
-assert(a == b);
-a = 2.0f;
-b = 4.0f;
-a += c;
-assert(a == b);
-a -= c;
-assert(a == c);
-a = b;
-a -= 2.0f;
-assert(a == c);
-a = b;
-b = { 2.0f,2.0f,4.0f };
-a -= meow::vec2{ 2.0f,2.0f };
-assert(a == b);
-a = c;
-b = 4.0f;
-a *= 2.0f;
-assert(a == b);
-a /= 2.0f;
-assert(a == c);
+			a += 2.0f;
+			b = 4.0f;
+			assert(a == b);
+			a = 2.0f;
+			b = { 4.0f,4.0f,2.0f };
+			a += meow::vec2{ 2.0f,2.0f };
+			assert(a == b);
+			a = 2.0f;
+			b = 4.0f;
+			a += c;
+			assert(a == b);
+			a -= c;
+			assert(a == c);
+			a = b;
+			a -= 2.0f;
+			assert(a == c);
+			a = b;
+			b = { 2.0f,2.0f,4.0f };
+			a -= meow::vec2{ 2.0f,2.0f };
+			assert(a == b);
+			a = c;
+			b = 4.0f;
+			a *= 2.0f;
+			assert(a == b);
+			a /= 2.0f;
+			assert(a == c);
 		}
 		//internal functions
 		{
@@ -328,9 +328,109 @@ assert(a == c);
 	}
 	//mat3
 	{
+		//internal operators
+		{
+			meow::mat3 a, b = { 1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f }, c;
+			c = { 1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f };
+			assert(c == b);
+			a = b;
+			assert(a == c);
+			c = { 2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f };
+			a += 1.0f;
+			assert(a == c);
+			a = b;
+			a += b;
+			assert(a == c);
+			a -= 1.0f;
+			assert(a == b);
+			a = c;
+			a -= b;
+			assert(a == b);
+			a *= 2.0f;
+			assert(a == c);
+			a = b;
+			a *= c;
+			c = { 6.0f,6.0f,6.0f,6.0f,6.0f,6.0f,6.0f,6.0f,6.0f };
+			assert(a == c);
+		}
+		//internal functions
+		{
+			meow::mat3 a, b, c;
+			c = { 1.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,0.0f,1.0f };
+			b = b.identity();
+			a = { 2.0f,4.0f,7.0f,2.0f,5.0f,8.0f,3.0f,6.0f,9.0f };
+			assert(c == b);
+			assert(a * a.inverse() == a.identity());
+			b = a.transpose();
+			c = { 2.0f,2.0f,3.0f,4.0f,5.0f,6.0f,7.0f,8.0f,9.0f };
+			assert(b == c);
+			b = { 0.0f,1.0f,0.0f,-1.0f,0.0f,0.0f,0.0f,0.0f,1.0f };
+			assert(a.rotate(PI / 2.0f) == b);
+			assert(a.rotate(meow::vec2{ PI / 2.0f, PI / 2.0f }) == b);
+			b = { 2.0f,0.0f,0.0f,0.0f,2.0f,0.0f,0.0f,0.0f,1.0f };
+			assert(a.scale(meow::vec2{ 2.0f,2.0f }) == b);
+			b = { 1.0f,0.0f,0.0f,0.0f,1.0f,0.0f,1.0f,1.0f,1.0f };
+			assert(a.translate(meow::vec2{ 1.0f,1.0f }) == b);
+			assert(fabs(a.determinant() - (-3.0f)) <= FLT_EPSILON);
+		}
+		//external operators
+		{
+			meow::mat3 a, b, c;
+			a = { 1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f };
+			b = a;
+			c = { 2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f };
+			assert(a + 1.0f == c);
+			assert(1.0f + a == c);
+			assert(a + b == c);
+			assert(c - 1.0f == a);
+			assert(c - b == a);
+			assert(a * 2.0f == c);
+			assert(2.0f * a == c);
+			b = { 6.0f,6.0f,6.0f,6.0f,6.0f,6.0f,6.0f,6.0f,6.0f };
+			assert(a * c == b);
+			meow::vec3 av, bv;
+			av = 2.0f;
+			bv = 6.0f;
+			assert(a * av == bv);
+			assert(av * a == bv);
+		}
+		//bool operators
+		{
+			meow::mat3 a, b, c;
+			a = b = { 1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f };
+			c = { 2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f };
+			assert(a == b);
+			assert(a != c);
+			assert(a < c);
+			assert(a <= c && a <= b);
+			assert(c > b);
+			assert(c >= b && b >= a);
+		}
+		//external functions
+		{
+			meow::mat3 a, b, c;
+			c = { 1.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,0.0f,1.0f };
+			b = meow::mat3Identity();
+			a = { 2.0f,4.0f,7.0f,2.0f,5.0f,8.0f,3.0f,6.0f,9.0f };
+			assert(c == b);
+			assert(a * meow::inverse(a) == meow::mat3Identity());
+			b = meow::transpose(a);
+			c = { 2.0f,2.0f,3.0f,4.0f,5.0f,6.0f,7.0f,8.0f,9.0f };
+			assert(b == c);
+			b = { 0.0f,1.0f,0.0f,-1.0f,0.0f,0.0f,0.0f,0.0f,1.0f };
+			assert(meow::rotate((PI / 2.0f)) == b);
+			assert(meow::rotate(meow::vec2{ PI / 2.0f, PI / 2.0f }) == b);
+			b = { 2.0f,0.0f,0.0f,0.0f,2.0f,0.0f,0.0f,0.0f,1.0f };
+			assert(meow::scale(meow::vec2{ 2.0f,2.0f }) == b);
+			b = { 1.0f,0.0f,0.0f,0.0f,1.0f,0.0f,1.0f,1.0f,1.0f };
+			assert(meow::translate(meow::vec2{ 1.0f,1.0f }) == b);
+			assert(fabs(meow::determinant(a) - (-3.0f)) <= FLT_EPSILON);
+		}
 
 	}
-	
-	
+	//mat4
+	{
+
+	}
 	return;
 }

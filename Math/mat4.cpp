@@ -82,18 +82,11 @@ meow::mat4 meow::mat4::rotate(const vec3 &a, const float &b, bool c)
 }
 meow::mat4 meow::mat4::scale(const vec3 &a) const
 {
-	mat4 tmp = meow::mat4Identity();
-	for (int i = 0; i < 3;++i)
-		tmp.c[i].v[i] *= a.v[i];
-	return tmp;
+	return meow::scale(a);
 }
 meow::mat4 meow::mat4::translate(const vec3 &a) const
 {
-	mat4 tmp = mat4::identity();
-	tmp.c[3].v[0] = a.x;
-	tmp.c[3].v[1] = a.y;
-	tmp.c[3].v[2] = a.z;
-	return tmp;
+	return meow::translate(a);
 }
 float meow::mat4::determinant() const
 {
@@ -245,25 +238,32 @@ meow::mat4 meow::rotate(const vec3 &a, const float &b, bool c)
 	vec3 norm = a.normal();
 	if (c)
 	{
-		tmp.c[0].xyz = { norm.x * norm.x + (1 - norm.x * norm.x) * cos(b), norm.x * norm.y * (1 - cos(b)) + norm.z *sin(b),norm.x * norm.z*(1 - cos(b)) - norm.y * sin(b) };
-		tmp.c[1].xyz = { norm.x * norm.y * (1 - cos(b)) - norm.z * sin(b), norm.y * norm.y + (1 - norm.y * norm.y)*cos(b),norm.y * norm.z*(1 - cos(b)) + norm.x * sin(b) };
-		tmp.c[2].xyz = { norm.x * norm.z * (1 - cos(b)) + norm.y * sin(b),norm.y *norm.z *(1 - cos(b)) - norm.x * sin(b),norm.z * norm.z + (1 - norm.z * norm.z)*cos(b) };
+		tmp.c[0] = vec3{ norm.x * norm.x + (1 - norm.x * norm.x) * cos(b), norm.x * norm.y * (1 - cos(b)) + norm.z *sin(b),norm.x * norm.z*(1 - cos(b)) - norm.y * sin(b) };
+		tmp.c[1] = vec3{ norm.x * norm.y * (1 - cos(b)) - norm.z * sin(b), norm.y * norm.y + (1 - norm.y * norm.y)*cos(b),norm.y * norm.z*(1 - cos(b)) + norm.x * sin(b) };
+		tmp.c[2] = vec3{ norm.x * norm.z * (1 - cos(b)) + norm.y * sin(b),norm.y *norm.z *(1 - cos(b)) - norm.x * sin(b),norm.z * norm.z + (1 - norm.z * norm.z)*cos(b) };
 	}
 	else
 	{
-		tmp.c[0].xyz = { cos(a.z) * cos(a.y), sin(a.z) * cos(a.y),sin(a.y) };
-		tmp.c[1].xyz = { -sin(a.z) * cos(a.x) - sin(a.x) * sin(a.y) * cos(a.z),cos(a.z) * cos(a.x) - sin(a.x)*sin(a.y)*sin(a.z),sin(a.x) * cos(a.y) };
-		tmp.c[2].xyz = { sin(a.z) * sin(a.x) - cos(a.x) * sin(a.y) * cos(a.z),-sin(a.x)*cos(a.z) - cos(a.x)*sin(a.y)*sin(a.z),cos(a.x)*cos(a.y) };
+		tmp.c[0] = vec3{ cos(a.z) * cos(a.y), sin(a.z) * cos(a.y),sin(a.y) };
+		tmp.c[1] = vec3{ -sin(a.z) * cos(a.x) - sin(a.x) * sin(a.y) * cos(a.z),cos(a.z) * cos(a.x) - sin(a.x)*sin(a.y)*sin(a.z),sin(a.x) * cos(a.y) };
+		tmp.c[2] = vec3{ sin(a.z) * sin(a.x) - cos(a.x) * sin(a.y) * cos(a.z),-sin(a.x)*cos(a.z) - cos(a.x)*sin(a.y)*sin(a.z),cos(a.x)*cos(a.y) };
 	}
 	return tmp;
 }
-meow::mat4 meow::scale(const mat4 &a, const vec3 &b)
+meow::mat4 meow::scale(const vec3 &a)
 {
-	return a.scale(b);
+	mat4 tmp = meow::mat4Identity();
+	for (int i = 0; i < 3; ++i)
+		tmp.c[i].v[i] *= a.v[i];
+	return tmp;
 }
-meow::mat4 meow::translate(const mat4 &a, const vec3 &b)
+meow::mat4 meow::translate(const vec3 &a)
 {
-	return a.translate(b);
+	mat4 tmp = meow::mat4Identity();
+	tmp.c[3].v[0] = a.x;
+	tmp.c[3].v[1] = a.y;
+	tmp.c[3].v[2] = a.z;
+	return tmp;
 }
 
 float meow::determinant(const mat4 &a)

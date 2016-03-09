@@ -6,6 +6,8 @@
 
 #include "vec4.h"
 
+#define PI 3.14159265358979323846264338327950288419716939937510f
+
 namespace meow
 {
 	struct mat3
@@ -71,10 +73,10 @@ namespace meow
 	mat3 mat3Identity();
 	mat3 inverse(const mat3 &a);
 	mat3 transpose(const mat3 &a);
-	mat3 rotate(const mat3 &a, const float &b);
-	mat3 rotate(const mat3 &a, const vec2 &b);
-	mat3 scale(const mat3 &a, const vec2 &b);
-	mat3 translate(const mat3 &a, const vec2 &b);
+	mat3 rotate(const float &a);
+	mat3 rotate(const vec2 &a);
+	mat3 scale(const vec2 &a);
+	mat3 translate(const vec2 &a);
 
 	float determinant(const mat3 &a);
 }
