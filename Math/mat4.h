@@ -38,9 +38,11 @@ namespace meow
 		mat4 identity() const;
 		mat4 inverse() const;
 		mat4 transpose() const;
-		//mat4 orthographicProjection() const;
-		mat4 rotate(const float &a) const;
-		mat4 rotate(const vec3 &a) const;
+		//left = a, right = b, bottom = c, top = d, near = e, far = f
+		mat4 orthographicProjection(const float &a, const float &b, const float &c, const float &d, const float &e, const float &f) const;
+		mat4 rotate(const float &a, const int &b);
+		//rotates around an arbitrary axis (true) or around x y z axis (false)
+		mat4 rotate(const vec3 &a, const float &b, bool c = true);
 		mat4 scale(const vec3 &a) const;
 		mat4 translate(const vec3 &a) const;
 
@@ -75,9 +77,11 @@ namespace meow
 	mat4 mat4Identity();
 	mat4 inverse(const mat4 &a);
 	mat4 transpose(const mat4 &a);
-	//mat4 orthographicProjection();
-	mat4 rotate(const mat4 &a, const float &b);
-	mat4 rotate(const mat4 &a, const vec3 &b);
+	//left = a, right = b, bottom = c, top = d, near = e, far = f
+	mat4 orthographicProjection(const float &a, const float &b, const float &c, const float &d, const float &e, const float &f);
+	mat4 rotate(const float &a, const int &b);
+	//rotates around an arbitrary axis (true) or around x axis y axis z axis (false)
+	mat4 rotate(const vec3 &a, const float &b, bool c = true);
 	mat4 scale(const mat4 &a, const vec3 &b);
 	mat4 translate(const mat4 &a, const vec3 &b);
 

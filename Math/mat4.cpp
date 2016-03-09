@@ -68,15 +68,17 @@ meow::mat4 meow::mat4::transpose() const
 			tmp.c[i].v[j] = this->c[j].v[i];
 	return tmp;
 }
-meow::mat4 meow::mat4::rotate(const float &a) const
+meow::mat4 meow::mat4::orthographicProjection(const float &a, const float &b, const float &c, const float &d, const float &e, const float &f) const
 {
-	return this->rotate(vec3{ 0.0f, 0.0f ,a });
+	return meow::orthographicProjection(a, b, c, d, e, f);
 }
-meow::mat4 meow::mat4::rotate(const vec3 &a) const
+meow::mat4 meow::mat4::rotate(const float &a, const int &b)
 {
-	mat4 tmp = meow::mat4Identity();
-
-	return tmp;
+	return meow::rotate(a, b);
+}
+meow::mat4 meow::mat4::rotate(const vec3 &a, const float &b, bool c)
+{
+	return meow::rotate(a, b, c);
 }
 meow::mat4 meow::mat4::scale(const vec3 &a) const
 {
@@ -93,7 +95,6 @@ meow::mat4 meow::mat4::translate(const vec3 &a) const
 	tmp.c[3].v[2] = a.z;
 	return tmp;
 }
-
 float meow::mat4::determinant() const
 {
 	float det = 0.0f;
@@ -219,13 +220,42 @@ meow::mat4 meow::transpose(const mat4 &a)
 {
 	return a.transpose();
 }
-meow::mat4 meow::rotate(const mat4 &a, const float &b)
+meow::mat4 meow::orthographicProjection(const float &a, const float &b, const float &c, const float &d, const float &e, const float &f)
 {
-	return a.rotate(b);
+	mat4 tmp = mat4Identity();
+	tmp.c[0] = { 2.0f / (b - a),0.0f,0.0f,0.0f };
+	tmp.c[1] = { 0.0f, 2.0f / (d - c),0.0f,0.0f };
+	tmp.c[2] = { 0.0f,0.0f,-2.0f / (f - e),0.0f };
+	tmp.c[3] = { -(b + a) / (b - a),-(d + c) / (d - c),-(f + e) / (f - e),1.0f };
+	return tmp;
 }
-meow::mat4 meow::rotate(const mat4 &a, const vec3 &b)
+meow::mat4 meow::rotate(const float &a, const int &b)
 {
-	return a.rotate(b);
+	vec3 tmp;
+	for (int i = 0; i < 3; ++i)
+		if (i != b)
+			tmp.v[i] = 0.0f;
+		else
+			tmp.v[i] = 1.0f;
+	return meow::rotate(tmp, a);
+}
+meow::mat4 meow::rotate(const vec3 &a, const float &b, bool c)
+{
+	mat4 tmp = meow::mat4Identity();
+	vec3 norm = a.normal();
+	if (c)
+	{
+		tmp.c[0].xyz = { norm.x * norm.x + (1 - norm.x * norm.x) * cos(b), norm.x * norm.y * (1 - cos(b)) + norm.z *sin(b),norm.x * norm.z*(1 - cos(b)) - norm.y * sin(b) };
+		tmp.c[1].xyz = { norm.x * norm.y * (1 - cos(b)) - norm.z * sin(b), norm.y * norm.y + (1 - norm.y * norm.y)*cos(b),norm.y * norm.z*(1 - cos(b)) + norm.x * sin(b) };
+		tmp.c[2].xyz = { norm.x * norm.z * (1 - cos(b)) + norm.y * sin(b),norm.y *norm.z *(1 - cos(b)) - norm.x * sin(b),norm.z * norm.z + (1 - norm.z * norm.z)*cos(b) };
+	}
+	else
+	{
+		tmp.c[0].xyz = { cos(a.z) * cos(a.y), sin(a.z) * cos(a.y),sin(a.y) };
+		tmp.c[1].xyz = { -sin(a.z) * cos(a.x) - sin(a.x) * sin(a.y) * cos(a.z),cos(a.z) * cos(a.x) - sin(a.x)*sin(a.y)*sin(a.z),sin(a.x) * cos(a.y) };
+		tmp.c[2].xyz = { sin(a.z) * sin(a.x) - cos(a.x) * sin(a.y) * cos(a.z),-sin(a.x)*cos(a.z) - cos(a.x)*sin(a.y)*sin(a.z),cos(a.x)*cos(a.y) };
+	}
+	return tmp;
 }
 meow::mat4 meow::scale(const mat4 &a, const vec3 &b)
 {
