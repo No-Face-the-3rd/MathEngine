@@ -10,6 +10,8 @@ void main()
 #ifndef _DEBUG
 	return;
 #endif
+
+
 	mathAsserts();
 	system("pause");
 	return;
@@ -325,6 +327,7 @@ void mathAsserts()
 			c = { 2.0f,-2.0f,-2.0f,-2.0f };
 			assert(meow::reflection(a, b) == c);
 		}
+
 	}
 	//mat3
 	{
@@ -430,7 +433,44 @@ void mathAsserts()
 	}
 	//mat4
 	{
-
+		//internal operators
+		{
+			meow::mat4 a, b = { 1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f }, c;
+			c = { 1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f };
+			assert(c == b);
+			a = b;
+			assert(a == c);
+			c = { 2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f };
+			a += 1.0f;
+			assert(a == c);
+			a = b;
+			a += b;
+			assert(a == c);
+			a -= 1.0f;
+			assert(a == b);
+			a = c;
+			a -= b;
+			assert(a == b);
+			a *= 2.0f;
+			assert(a == c);
+			a = b;
+			a *= c;
+			c = { 8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f };
+			assert(a == c);
+		}
+		//internal functions
+		{
+			meow::mat4 a, b, c;
+			c = { 1.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,0.0f,0.0f,1.0f };
+			b = b.identity();
+			a = { 1.0f,5.0f,8.0f,4.0f,2.0f,6.0f,7.0f,2.0f,3.0f,7.0f,6.0f,3.0f,4.0f,8.0f,8.0f,4.0f };
+			assert(c == b);
+			assert(a * a.inverse() == a.identity());
+			b = a.transpose();
+			c = { 1.0f,2.0f,3.0f,4.0f,5.0f,6.0f,7.0f,8.0f,8.0f,7.0f,6.0f,8.0f,4.0f,2.0f,3.0f,4.0f };
+			assert(b == c);
+			
+		}
 	}
 	return;
 }
