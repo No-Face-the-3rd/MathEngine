@@ -33,11 +33,11 @@ namespace meow
 		std::vector<meow::vec2> verts;
 	};
 
-	circle operator*(const mat3 &a, const circle &b);
-	aabb operator*(const mat3 &a, const aabb &b);
-	plane operator*(const mat3 &a, const plane &b);
-	ray operator*(const mat3 &a, const ray &b);
-	convexHull operator*(const mat3 &a, const ray &b);
+	circle operator*(const meow::mat3 &a, const meow::circle &b);
+	aabb operator*(const meow::mat3 &a, const meow::aabb &b);
+	plane operator*(const meow::mat3 &a, const meow::plane &b);
+	ray operator*(const meow::mat3 &a, const meow::ray &b);
+	convexHull operator*(const meow::mat3 &a, const meow::convexHull &b);
 }
 
 

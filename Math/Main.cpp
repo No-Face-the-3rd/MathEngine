@@ -12,9 +12,9 @@ void main()
 #endif
 
 
-	mathAsserts();
 	system("pause");
 	return;
+	mathAsserts();
 }
 
 void mathAsserts()
