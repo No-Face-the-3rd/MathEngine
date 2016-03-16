@@ -469,8 +469,82 @@ void mathAsserts()
 			b = a.transpose();
 			c = { 1.0f,2.0f,3.0f,4.0f,5.0f,6.0f,7.0f,8.0f,8.0f,7.0f,6.0f,8.0f,4.0f,2.0f,3.0f,4.0f };
 			assert(b == c);
-			
-			
+			b = { 1.0f, 0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,-2.0f,-2.0f,2.0f,1.0f };
+			assert(a.orthographicProjection(1.0f, 3.0f, 1.0f, 3.0f, 3.0f, 1.0f) == b);
+			b = { 1.0f, 0.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,0.0f,0.0f,0.0f,1.0f };
+			assert(a.rotate(PI / 2.0f, 0) == b);
+			assert(a.rotate(meow::vec3{ 1.0f,0.0f,0.0f }, PI / 2.0f) == b);
+			b = b.identity();
+			b.c[0].v[0] = b.c[1].v[1] = b.c[2].v[2] = 2.0f;
+			assert(a.scale(meow::vec3{ 2.0f,2.0f,2.0f }) == b);
+			b = b.identity();
+			b.c[3].xyz += 1.0f;
+			assert(a.translate(meow::vec3{ 1.0f,1.0f,1.0f }) == b);
+			assert(fabs(a.determinant() - 36.0f) <= FLT_EPSILON);
+			meow::mat3 am;
+			am = { 6.0f,7.0f,2.0f,7.0f,6.0f,3.0f,8.0f,8.0f,4.0f };
+			assert(a.minor(0, 0) == am);
+		}
+		//external operators
+		{
+			meow::mat4 a, b, c;
+			a = b = { 1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f };
+			c = { 2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f };
+			assert(a + 1.0f == c);
+			assert(1.0f + a == c);
+			assert(a + b == c);
+			assert(c - 1.0f == a);
+			assert(c - b == a);
+			assert(a * 2.0f == c);
+			assert(2.0f * a == c);
+			b = { 8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f,8.0f };
+			assert(a * c == b);
+			meow::vec4 av, bv;
+			av = 2.0f;
+			bv = 8.0f;
+			assert(a * av == bv);
+			assert(av * a == bv);
+		}
+		//bool operators
+		{
+			meow::mat4 a, b, c;
+			a = b = { 1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f };
+			c = meow::mat4{ 1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f } * 2.0f;
+			assert(a == b);
+			assert(a != c);
+			assert(a < c);
+			assert(a <= c && a <= b);
+			assert(c > b);
+			assert(c >= b&& b >= a);
+		}
+		//external functions
+		{
+			meow::mat4 a, b, c;
+			c = { 1.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,0.0f,0.0f,1.0f };
+			b = meow::mat4Identity();
+			a = { 1.0f,5.0f,8.0f,4.0f,2.0f,6.0f,7.0f,2.0f,3.0f,7.0f,6.0f,3.0f,4.0f,8.0f,8.0f,4.0f };
+			assert(c == b);
+			assert(a * meow::inverse(a) == meow::mat4Identity());
+			b = meow::transpose(a);
+			c = { 1.0f,2.0f,3.0f,4.0f,5.0f,6.0f,7.0f,8.0f,8.0f,7.0f,6.0f,8.0f,4.0f,2.0f,3.0f,4.0f };
+			assert(b == c);
+			b = { 1.0f, 0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,-2.0f,-2.0f,2.0f,1.0f };
+			assert(meow::orthographicProjection(1.0f, 3.0f, 1.0f, 3.0f, 3.0f, 1.0f) == b);
+			b = { 1.0f, 0.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,0.0f,0.0f,0.0f,1.0f };
+			assert(meow::rotate(PI / 2.0f, 0) == b);
+			assert(meow::rotate(meow::vec3{ 1.0f,0.0f,0.0f }, PI / 2.0f) == b);
+			b = meow::mat4Identity();
+			b.c[0].v[0] = b.c[1].v[1] = b.c[2].v[2] = 2.0f;
+			assert(meow::scale(meow::vec3{ 2.0f,2.0f,2.0f }) == b);
+			b = b.identity();
+			b.c[3].xyz += 1.0f;
+			assert(meow::translate(meow::vec3{ 1.0f,1.0f,1.0f }) == b);
+			assert(fabs(meow::determinant(a) - 36.0f) <= FLT_EPSILON);
+			meow::mat3 am;
+			am = { 6.0f,7.0f,2.0f,7.0f,6.0f,3.0f,8.0f,8.0f,4.0f };
+			assert(meow::minor(a, 0, 0) == am);
+			b = { 6.0f,7.0f,0.0f,2.0f,7.0f,6.0f,0.0f,3.0f,0.0f,0.0f,1.0f,0.0f,8.0f,8.0f,0.0f,4.0f };
+			assert(meow::mat3ToMat4(am) == b);
 		}
 	}
 	return;
