@@ -285,12 +285,12 @@ meow::collisionData meow::cTest(const meow::convexHull &a, const meow::ray &b)
 	meow::vec2 j;
 	int l = -1;
 
-	for (int i = 0; i < a.verts.size(); i+)
+	for (int i = 0; i < a.verts.size(); i++)
 		f.push_back(meow::vec2{ a.verts[i] - a.verts[(i + 1) % a.verts.size()] }.perpendicular().normal());
 	
 	for (int i = 0; i < f.size(); i++)
 	{
-		float g = -meow::dot(f.at(i), b.pos - a.verts.at(i)), h = meow::dot(f.at(i), b.dir);
+		float g = meow::dot(f.at(i), a.verts.at(i) - b.pos), h = meow::dot(f.at(i), b.dir);
 
 		if (std::fabs(h) < FLT_EPSILON)
 			if (g < 0.0f)
@@ -343,7 +343,7 @@ meow::collisionData meow::cTest(const meow::plane &a, const meow::ray &b)
 		if (tmp.collided = (d / c >= 0.0f && d / c <= b.length))
 		{
 			tmp.depth = b.length - d / c;
-			tmp.depth = b.dir;
+			tmp.normal = b.dir;
 		}
 	return tmp;
 }
