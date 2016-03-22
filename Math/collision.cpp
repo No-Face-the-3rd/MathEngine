@@ -365,5 +365,16 @@ meow::collisionData meow::cTest(const meow::ray &a, const meow::plane &b)
 }
 meow::collisionData meow::cTest(const meow::ray &a, const meow::ray &b)
 {
+	meow::collisionData tmp;
+	float c, d;
+	c = (a.pos.y * b.dir.x + b.dir.y * b.pos.x - b.pos.y * b.dir.x - b.dir.y * a.pos.x) / (a.dir.x * b.dir.y - a.dir.y * b.dir.x);
+	d = (a.pos.x + a.dir.x * c - b.pos.x) / b.dir.x;
 
+	meow::vec2 e = (a.pos + a.dir * a.length) - (b.pos + b.dir * b.length);
+	if (tmp.collided = (c >= 0.0f && d >= 0.0f && c <= a.length && d <= b.length))
+	{
+		tmp.normal = e.normal();
+		tmp.depth = e.magnitude();
+	}
+	return tmp;
 }
