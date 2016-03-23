@@ -95,7 +95,7 @@ meow::collisionData meow::cTest(const meow::aabb &a, const meow::ray &b)
 {
 	meow::collisionData tmp;
 	meow::plane c, d, e, f;
-	float g, h, i = FLT_MAX, j = FLT_MIN;
+	float g, h, i = FLT_MAX, j = FLT_MIN, k = FLT_MAX, l = FLT_MIN;
 
 	
 	if (meow::dot(meow::vec2{ 1.0f,0.0f }, b.dir) > FLT_EPSILON)
@@ -107,15 +107,27 @@ meow::collisionData meow::cTest(const meow::aabb &a, const meow::ray &b)
 		i = std::fminf(g, h);
 		j = std::fmaxf(g, h);
 	}
+	else
+	{
+		i = FLT_MIN;
+		j = FLT_MAX;
+	}
 	if (meow::dot(meow::vec2{ 0.0f,1.0f }, b.dir) > FLT_EPSILON)
 	{
 		e = meow::plane{ a.min(), meow::vec2{0.0f,-1.0f} };
 		f = meow::plane{ a.max(), meow::vec2{0.0f,1.0f} };
 		g = meow::rayPlaneDist(b, e);
 		h = meow::rayPlaneDist(b, f);
-		i = std::fminf(i, std::fminf(g, h));
-		j = std::fmaxf(j, std::fmaxf(g, h));
+		k = std::fminf(g, h);
+		l = std::fmaxf(g, h);
 	}
+	else
+	{
+		k = FLT_MIN;
+		l = FLT_MAX;
+	}
+	i = std::fmaxf(i, k);
+	j = std::fminf(j, l);
 	if (tmp.collided = (i <= j && 0 <= i && i <= b.length))
 	{
 		tmp.depth = i;
@@ -280,40 +292,32 @@ meow::collisionData meow::cTest(const meow::convexHull &a, const meow::plane &b)
 meow::collisionData meow::cTest(const meow::convexHull &a, const meow::ray &b)
 {
 	meow::collisionData tmp;
-	float c = FLT_MAX, d = 0.0f, e = 1.0f, k;
-	std::vector<meow::vec2> f;
-	meow::vec2 j;
-	int l = -1;
+	std::vector<meow::vec2> c;
+	float d, e, f, g = 0.0f, h = FLT_MAX;
 
-	for (int i = 0; i < a.verts.size(); i++)
-		f.push_back(meow::vec2{ a.verts[i] - a.verts[(i + 1) % a.verts.size()] }.perpendicular().normal());
+	for (int i = 0; i < a.verts.size(); ++i)
+		c.push_back(meow::vec2{ a.verts[i] - a.verts[(i + 1) % a.verts.size()] }.perpendicular().normal());
 	
-	for (int i = 0; i < f.size(); i++)
+	for (int i = 0; i < c.size(); ++i)
 	{
-		float g = meow::dot(f.at(i), a.verts.at(i) - b.pos), h = meow::dot(f.at(i), b.dir);
+		d = meow::dot(c.at(i), a.verts.at(i) - b.pos);
+		e = meow::dot(c.at(i), b.dir);
 
-		if (std::fabs(h) < FLT_EPSILON)
-			if (g < 0.0f)
-				return tmp;
-		
-		g = g / h;
+		if (std::fabs(e) < FLT_EPSILON)
+			continue;
 
-		if (h < 0.0f)
-		{
-			if (d < g)
-			{
-				d = g;
-				l = i;
-			}
-		}
+		f = d / e;
+
+		if (e <  0.0f)
+			g = std::fmaxf(g, f);
 		else
-			e = g;
+			h = std::fminf(h, f);
 	}
 
-	if (tmp.collided = d <= e)
+	if (tmp.collided = (g <= h && g > 0.0f && g < b.length))
 	{
-		tmp.depth = b.length - d;
-		tmp.normal = f.at(l);
+		tmp.depth = b.length - g;
+		tmp.normal = b.dir;
 	}
 	return tmp;
 }
