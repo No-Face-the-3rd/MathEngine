@@ -11,8 +11,13 @@ namespace meow
 	struct aabb
 	{
 		meow::vec2 pos, dim;
+		
 		meow::vec2 min() const;
 		meow::vec2 max() const;
+
+		static aabb genaabb(const std::vector<meow::vec2>& corners);
+
+		void rotate(float a);
 	};
 	struct circle
 	{

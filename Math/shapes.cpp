@@ -10,6 +10,39 @@ meow::vec2 meow::aabb::max() const
 	return (pos + (dim / 2.0f));
 }
 
+meow::aabb meow::aabb::genaabb(const std::vector<vec2>& corners)
+{
+	meow::aabb bb;
+	float xMin, yMin, xMax, yMax;
+	xMin = yMin = FLT_MAX;
+	xMax = yMax = FLT_MIN;
+	for each(meow::vec2 corner in corners)
+	{
+		if (corner.x < xMin)
+			xMin = corner.x;
+		if (corner.y < yMin)
+			yMin = corner.y;
+		if (corner.x > xMax)
+			xMax = corner.x;
+		if (corner.y > yMax)
+			yMax = corner.y;
+	}
+	bb.dim.x = xMax - xMin;
+	bb.dim.y = yMax - yMin;
+	bb.pos.x = xMin + bb.dim.x * 0.5f;
+	bb.pos.y = yMin + bb.dim.y * 0.5f;
+	return bb;
+}
+
+void meow::aabb::rotate(float a)
+{
+	float w, h;
+	w = dim.x * std::fabs(std::cos(a)) + dim.y * std::fabs(std::sin(a));
+	h = dim.x * std::fabs(std::sin(a)) + dim.y * std::fabs(std::cos(a));
+	dim.x = w;
+	dim.y = h;
+}
+
 meow::aabb meow::operator*(const meow::mat3 &a, const meow::aabb &b)
 {
 	meow::aabb tmp;

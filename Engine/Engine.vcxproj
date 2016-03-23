@@ -69,12 +69,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\jacob.dodson\Documents\visual studio 2015\3rd Party\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\jacob.dodson\Documents\visual studio 2015\3rd Party\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Jacob\Documents\Visual Studio 2015\3rd Party\Includes;C:\Users\jacob.dodson\Documents\visual studio 2015\3rd Party\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Jacob\Documents\Visual Studio 2015\3rd Party\Libs;C:\Users\jacob.dodson\Documents\visual studio 2015\3rd Party\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\jacob.dodson\Documents\visual studio 2015\3rd Party\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\jacob.dodson\Documents\visual studio 2015\3rd Party\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Jacob\Documents\Visual Studio 2015\3rd Party\Includes;C:\Users\jacob.dodson\Documents\visual studio 2015\3rd Party\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Jacob\Documents\Visual Studio 2015\3rd Party\Libs;C:\Users\jacob.dodson\Documents\visual studio 2015\3rd Party\Libs;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\Jacob\Documents\Visual Studio 2015\3rd Party\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Jacob\Documents\Visual Studio 2015\3rd Party\Libs;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Users\Jacob\Documents\Visual Studio 2015\3rd Party\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Jacob\Documents\Visual Studio 2015\3rd Party\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -95,6 +103,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glew32.lib;glfw.lib;SOIL.lib;Math.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -124,6 +133,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glew32.lib;glfw.lib;SOIL.lib;Math.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

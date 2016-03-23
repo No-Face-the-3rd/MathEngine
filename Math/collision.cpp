@@ -18,7 +18,8 @@ meow::collisionData meow::cTest(const meow::aabb &a, const meow::aabb &b)
 		tmp.collided = true;
 		meow::vec2 c = b.max() - a.min(), d = a.max() - b.min();
 		tmp.depth = std::fminf(std::fminf(c.x, d.x), std::fminf(c.y, d.y));
-		tmp.normal = (c.x - tmp.depth) < FLT_EPSILON || (d.x - tmp.depth) < FLT_EPSILON ? meow::vec2{ 1.0f,0.0f } : meow::vec2{ 0.0f,1.0f };
+		bool sign = ((c.x - tmp.depth) < FLT_EPSILON || (c.y - tmp.depth) < FLT_EPSILON);
+		tmp.normal = (sign ? -1 : 1) * ((c.x - tmp.depth) < FLT_EPSILON || (d.x - tmp.depth) < FLT_EPSILON) ? meow::vec2{ 1.0f,0.0f } : meow::vec2{ 0.0f,1.0f };
 	}
 	return tmp;
 }
