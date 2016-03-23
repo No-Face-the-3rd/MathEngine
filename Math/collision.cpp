@@ -315,10 +315,10 @@ meow::collisionData meow::cTest(const meow::convexHull &a, const meow::ray &b)
 			h = std::fminf(h, f);
 	}
 
-	if (tmp.collided = (g <= h && g > 0.0f && g < b.length))
+	if (tmp.collided = (g < h && g > 0.0f && g < b.length))
 	{
 		tmp.depth = b.length - g;
-		tmp.normal = b.dir;
+		tmp.normal = -b.dir;
 	}
 	return tmp;
 }
@@ -348,7 +348,7 @@ meow::collisionData meow::cTest(const meow::plane &a, const meow::ray &b)
 		if (tmp.collided = (d / c >= 0.0f && d / c <= b.length))
 		{
 			tmp.depth = b.length - d / c;
-			tmp.normal = b.dir;
+			tmp.normal = -b.dir;
 		}
 	return tmp;
 }
@@ -371,15 +371,31 @@ meow::collisionData meow::cTest(const meow::ray &a, const meow::plane &b)
 meow::collisionData meow::cTest(const meow::ray &a, const meow::ray &b)
 {
 	meow::collisionData tmp;
-	float c, d;
-	c = (a.pos.y * b.dir.x + b.dir.y * b.pos.x - b.pos.y * b.dir.x - b.dir.y * a.pos.x) / (a.dir.x * b.dir.y - a.dir.y * b.dir.x);
-	d = (a.pos.x + a.dir.x * c - b.pos.x) / b.dir.x;
+	meow::vec2 c, d, e, f, g;
+	float h, i, j, k;
+	c = a.dir * a.length;
+	d = b.dir * b.length;
+	g = b.pos - a.pos;
+	e = a.pos + c;
+	f = b.pos + d;
+	h = c.x * d.y - c.y * d.x;
+	i = g.x * c.y - g.y * c.x;
 
-	meow::vec2 e = (a.pos + a.dir * a.length) - (b.pos + b.dir * b.length);
-	if (tmp.collided = (c >= 0.0f && d >= 0.0f && c <= a.length && d <= b.length))
+	if (std::fabs(h) < FLT_EPSILON && std::fabs(i) < FLT_EPSILON)
+		if ((meow::dot(g, c) >= 0.0f && meow::dot(g, c) <= 1.0f) || (meow::dot(-g, d) >= 0.0f && meow::dot(-g, d) <= 1.0f))
+		{
+			tmp.collided = true;
+			return tmp;
+		}
+	
+	j = (g.x * d.y - g.y * d.x) / h;
+	k = i / h;
+
+	if (tmp.collided = (!(std::fabs(h) < FLT_EPSILON) && j >= 0.0f && j <= 1.0f && k >= 0.0f && k <= 1.0f))
 	{
-		tmp.normal = e.normal();
-		tmp.depth = e.magnitude();
+		tmp.normal = -a.dir;
+		tmp.depth = (1.0f - j) * a.length;
 	}
+
 	return tmp;
 }

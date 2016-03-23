@@ -17,7 +17,9 @@ public:
 	GLuint width, height;
 	GLboolean keys[1024], keysProcessed[1024], mouse[3], mouseProcessed[3], shouldClose;
 
-
+	Game();
+	Game(GLuint widthIn, GLuint heightIn);
+	~Game();
 
 
 	void init();
