@@ -31,13 +31,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

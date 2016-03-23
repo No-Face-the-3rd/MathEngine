@@ -11,7 +11,7 @@ namespace meow
 	struct aabb
 	{
 		meow::vec2 pos, dim;
-		
+
 		meow::vec2 min() const;
 		meow::vec2 max() const;
 
