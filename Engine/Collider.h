@@ -7,7 +7,7 @@
 #include "GCData.h"
 #include "Transform.h"
 
-#include <Math/collision.h>
+#include <Math/Math.h>
 
 struct Collider : GCData<Collider>
 {

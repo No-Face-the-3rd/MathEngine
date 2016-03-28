@@ -127,6 +127,7 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="mat3.h" />
     <ClInclude Include="mat4.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="shapes.h" />
     <ClInclude Include="vec2.h" />
     <ClInclude Include="vec3.h" />
