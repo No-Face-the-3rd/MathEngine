@@ -11,7 +11,7 @@
 
 struct Collider : GCData<Collider>
 {
-	enum Shape {e_AABB, e_CIRCLE, e_HULL, e_PLANE, e_RAY} shape;
+	enum Shape {e_AABB = 1, e_CIRCLE = 2, e_HULL = 4, e_PLANE = 8, e_RAY = 16} shape;
 
 	union
 	{
@@ -20,9 +20,11 @@ struct Collider : GCData<Collider>
 		meow::plane plane;
 		meow::ray ray;
 	};
-	meow::convexHull hull;	
+	meow::convexHull hull;
+
 
 	Collider();
+
 };
 
 meow::collisionData evalCollision(const Transform &at, const Collider &ac, const Transform &bt, const Collider &bc);

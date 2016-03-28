@@ -79,14 +79,14 @@ meow::convexHull meow::operator*(const meow::mat3 &a, const meow::convexHull &b)
 meow::plane meow::operator*(const meow::mat3 &a, const meow::plane &b)
 {
 	meow::vec3 nor = { b.normal.x, b.normal.y,0.0f }, pos = { b.pos.x,b.pos.y,1.0f };
-	return{ (a * pos).xy, (a * nor).xy };
+	return { (a * pos).xy, (a * nor).xy };
 }
 meow::ray meow::operator*(const meow::mat3 &a, const meow::ray &b)
 {
 	meow::ray tmp;
 	meow::vec3 dir = { b.dir.x, b.dir.y,0.0f }, pos = { b.pos.x, b.pos.y, 1.0f };
 	dir *= b.length;
-	tmp = { (a * pos).xy, (a * dir).xy };
+	tmp = meow::ray{ (a * pos).xy, (a * dir).xy };
 	tmp.length = tmp.dir.magnitude();
 	tmp.dir = tmp.dir.normal();
 	return tmp;
