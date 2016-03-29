@@ -27,8 +27,8 @@ public:
 	}
 
 	bool init(unsigned int Width = 800, unsigned int Height = 600, const char *Title = "Engine");
-	bool step(bool shouldClose = false);
-	void term();
+	bool step();
+	void term(bool shouldClose = false);
 
 	unsigned int getWidth()
 	{
